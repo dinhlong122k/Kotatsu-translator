@@ -1,0 +1,18 @@
+{
+  "id": "genre.system",
+  "version": 1,
+  "langPair": "ko-vi",
+  "genre": "system",
+  "title": "Hệ thống / Game",
+  "instructions": "Truyện hệ thống, game, hầm ngục: thông báo hệ thống (trong khung, ngoặc vuông) dịch ngắn gọn, giọng máy móc, giữ nguyên ngoặc và con số. Tên kỹ năng, vật phẩm: chọn một cách dịch hoặc để nguyên tiếng Anh nếu truyện dùng tiếng Anh, rồi dùng nhất quán.",
+  "terms": [
+    { "src": "상태창", "dst": "bảng trạng thái" },
+    { "src": "레벨", "dst": "cấp độ" },
+    { "src": "스킬", "dst": "kỹ năng" },
+    { "src": "던전", "dst": "hầm ngục" },
+    { "src": "퀘스트", "dst": "nhiệm vụ" },
+    { "src": "아이템", "dst": "vật phẩm" },
+    { "src": "헌터", "dst": "thợ săn" },
+    { "src": "경험치", "dst": "điểm kinh nghiệm" }
+  ]
+}

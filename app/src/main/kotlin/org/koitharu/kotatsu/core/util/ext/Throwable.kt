@@ -34,6 +34,11 @@ import org.koitharu.kotatsu.core.exceptions.UnsupportedSourceException
 import org.koitharu.kotatsu.core.exceptions.WrapperIOException
 import org.koitharu.kotatsu.core.exceptions.WrongPasswordException
 import org.koitharu.kotatsu.core.exceptions.resolve.ExceptionResolver
+import org.koitharu.kotatsu.translator.domain.isMissingKey
+import org.koitharu.kotatsu.translator.domain.isQuotaExceeded
+import org.koitharu.kotatsu.translator.domain.model.AiException
+import org.koitharu.kotatsu.translator.domain.model.ModelIntegrityException
+import org.koitharu.kotatsu.translator.domain.model.OcrNotReadyException
 import org.koitharu.kotatsu.parsers.ErrorMessages.FILTER_BOTH_LOCALE_GENRES_NOT_SUPPORTED
 import org.koitharu.kotatsu.parsers.ErrorMessages.FILTER_BOTH_STATES_GENRES_NOT_SUPPORTED
 import org.koitharu.kotatsu.parsers.ErrorMessages.FILTER_MULTIPLE_GENRES_NOT_SUPPORTED
@@ -106,6 +111,15 @@ private fun Throwable.getDisplayMessageOrNull(resources: Resources): String? = w
     is EmptyHistoryException -> resources.getString(R.string.history_is_empty)
     is EmptyMangaException -> reason?.let { resources.getString(it.msgResId) } ?: cause?.getDisplayMessage(resources)
     is ProxyConfigException -> resources.getString(R.string.invalid_proxy_configuration)
+    is AiException -> when {
+        isMissingKey() -> resources.getString(R.string.translator_error_api_key_missing)
+        kind == AiException.Kind.AUTH -> resources.getString(R.string.translator_error_api_key_invalid)
+        isQuotaExceeded() -> resources.getString(R.string.translator_error_quota)
+        else -> resources.getString(R.string.translator_error_failed)
+    }
+
+    is OcrNotReadyException -> resources.getString(R.string.translator_error_ocr_pack_missing, missingPack)
+    is ModelIntegrityException -> resources.getString(R.string.translator_error_model_corrupted)
     is SyncApiException,
     is ContentUnavailableException -> message
 

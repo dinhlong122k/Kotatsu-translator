@@ -38,6 +38,8 @@ import org.koitharu.kotatsu.parsers.util.mapNotNullToSet
 import org.koitharu.kotatsu.parsers.util.mapToSet
 import org.koitharu.kotatsu.parsers.util.nullIfEmpty
 import org.koitharu.kotatsu.reader.domain.ReaderColorFilter
+import org.koitharu.kotatsu.translator.domain.model.AiProvider
+import org.koitharu.kotatsu.translator.domain.model.OcrMode
 import java.io.File
 import java.net.Proxy
 import java.util.EnumSet
@@ -547,6 +549,86 @@ class AppSettings @Inject constructor(@ApplicationContext context: Context) {
 		get() = prefs.getString(KEY_DISCORD_TOKEN, null)?.trim()?.nullIfEmpty()
 		set(value) = prefs.edit { putString(KEY_DISCORD_TOKEN, value?.nullIfEmpty()) }
 
+	var isTranslatorEnabled: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_ENABLED, false)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_ENABLED, value) }
+
+	var isTranslatorAutoOnOpen: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_AUTO_ON_OPEN, true)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_AUTO_ON_OPEN, value) }
+
+	/**
+	 * Names of manga sources ([org.koitharu.kotatsu.parsers.model.MangaSource.name]) that are always translated
+	 */
+	var translatorAutoSources: Set<String>
+		get() = prefs.getStringSet(KEY_TRANSLATOR_AUTO_SOURCES, null).orEmpty()
+		set(value) = prefs.edit { putStringSet(KEY_TRANSLATOR_AUTO_SOURCES, value) }
+
+	var translatorTargetLanguage: String
+		get() = prefs.getString(KEY_TRANSLATOR_TARGET_LANG, null)?.trim()?.nullIfEmpty() ?: TRANSLATOR_DEFAULT_TARGET_LANG
+		set(value) = prefs.edit { putString(KEY_TRANSLATOR_TARGET_LANG, value) }
+
+	/**
+	 * Language code or [TRANSLATOR_SOURCE_LANG_AUTO]
+	 */
+	var translatorSourceLanguage: String
+		get() = prefs.getString(KEY_TRANSLATOR_SOURCE_LANG, null)?.trim()?.nullIfEmpty() ?: TRANSLATOR_SOURCE_LANG_AUTO
+		set(value) = prefs.edit { putString(KEY_TRANSLATOR_SOURCE_LANG, value) }
+
+	var translatorProvider: AiProvider
+		get() = prefs.getEnumValue(KEY_TRANSLATOR_PROVIDER, AiProvider.GEMINI)
+		set(value) = prefs.edit { putEnumValue(KEY_TRANSLATOR_PROVIDER, value) }
+
+	fun getTranslatorModel(provider: AiProvider): String? {
+		return prefs.getString(translatorModelKey(provider), null)?.trim()?.nullIfEmpty()
+	}
+
+	fun setTranslatorModel(provider: AiProvider, model: String?) {
+		prefs.edit { putString(translatorModelKey(provider), model?.trim()?.nullIfEmpty()) }
+	}
+
+	var translatorOpenAiBaseUrl: String?
+		get() = prefs.getString(KEY_TRANSLATOR_OPENAI_BASE_URL, null)?.trim()?.nullIfEmpty()
+		set(value) = prefs.edit { putString(KEY_TRANSLATOR_OPENAI_BASE_URL, value?.trim()?.nullIfEmpty()) }
+
+	var translatorOcrMode: OcrMode
+		get() = prefs.getEnumValue(KEY_TRANSLATOR_OCR_MODE, OcrMode.FAST)
+		set(value) = prefs.edit { putEnumValue(KEY_TRANSLATOR_OCR_MODE, value) }
+
+	/**
+	 * 0 means no limit
+	 */
+	var translatorRequestsPerMinute: Int
+		get() = prefs.getInt(KEY_TRANSLATOR_RPM, TRANSLATOR_DEFAULT_RPM)
+		set(value) = prefs.edit { putInt(KEY_TRANSLATOR_RPM, value) }
+
+	var isTranslatorPrefetchNextChapter: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_PREFETCH, true)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_PREFETCH, value) }
+
+	var isTranslatorFallbackEnabled: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_FALLBACK, true)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_FALLBACK, value) }
+
+	var isTranslatorHedgingEnabled: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_HEDGING, true)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_HEDGING, value) }
+
+	var translatorFontScalePercent: Int
+		get() = prefs.getInt(KEY_TRANSLATOR_FONT_SCALE, TRANSLATOR_DEFAULT_FONT_SCALE)
+		set(value) = prefs.edit { putInt(KEY_TRANSLATOR_FONT_SCALE, value) }
+
+	var translatorContextRetentionDays: Int
+		get() = prefs.getInt(KEY_TRANSLATOR_CONTEXT_DAYS, TRANSLATOR_DEFAULT_CONTEXT_DAYS)
+		set(value) = prefs.edit { putInt(KEY_TRANSLATOR_CONTEXT_DAYS, value) }
+
+	/**
+	 * The user has seen and accepted the notice about the data sent to the AI provider
+	 */
+	var isTranslatorConsentGiven: Boolean
+		get() = prefs.getBoolean(KEY_TRANSLATOR_CONSENT, false)
+		set(value) = prefs.edit { putBoolean(KEY_TRANSLATOR_CONSENT, value) }
+
 	val isPeriodicalBackupEnabled: Boolean
 		get() = prefs.getBoolean(KEY_BACKUP_PERIODICAL_ENABLED, false)
 
@@ -820,6 +902,36 @@ class AppSettings @Inject constructor(@ApplicationContext context: Context) {
 		const val KEY_DISCORD_RPC = "discord_rpc"
 		const val KEY_DISCORD_RPC_SKIP_NSFW = "discord_rpc_skip_nsfw"
 		const val KEY_DISCORD_TOKEN = "discord_token"
+		const val KEY_TRANSLATOR_ENABLED = "translator_enabled"
+		const val KEY_TRANSLATOR_AUTO_ON_OPEN = "translator_auto_on_open"
+		const val KEY_TRANSLATOR_AUTO_SOURCES = "translator_auto_sources"
+		const val KEY_TRANSLATOR_TARGET_LANG = "translator_target_lang"
+		const val KEY_TRANSLATOR_SOURCE_LANG = "translator_source_lang"
+		const val KEY_TRANSLATOR_PROVIDER = "translator_provider"
+		const val KEY_TRANSLATOR_MODEL_GEMINI = "translator_model_gemini"
+		const val KEY_TRANSLATOR_MODEL_OPENAI = "translator_model_openai"
+		const val KEY_TRANSLATOR_MODEL_CLAUDE = "translator_model_claude"
+		const val KEY_TRANSLATOR_OPENAI_BASE_URL = "translator_openai_base_url"
+		const val KEY_TRANSLATOR_OCR_MODE = "translator_ocr_mode"
+		const val KEY_TRANSLATOR_RPM = "translator_rpm"
+		const val KEY_TRANSLATOR_PREFETCH = "translator_prefetch"
+		const val KEY_TRANSLATOR_FALLBACK = "translator_fallback"
+		const val KEY_TRANSLATOR_HEDGING = "translator_hedging"
+		const val KEY_TRANSLATOR_FONT_SCALE = "translator_font_scale"
+		const val KEY_TRANSLATOR_CONTEXT_DAYS = "translator_context_days"
+		const val KEY_TRANSLATOR_CONSENT = "translator_consent"
+
+		const val TRANSLATOR_SOURCE_LANG_AUTO = "auto"
+		const val TRANSLATOR_DEFAULT_TARGET_LANG = "vi"
+		const val TRANSLATOR_DEFAULT_RPM = 10
+		const val TRANSLATOR_DEFAULT_FONT_SCALE = 100
+		const val TRANSLATOR_DEFAULT_CONTEXT_DAYS = 7
+
+		fun translatorModelKey(provider: AiProvider): String = when (provider) {
+			AiProvider.GEMINI -> KEY_TRANSLATOR_MODEL_GEMINI
+			AiProvider.OPENAI -> KEY_TRANSLATOR_MODEL_OPENAI
+			AiProvider.CLAUDE -> KEY_TRANSLATOR_MODEL_CLAUDE
+		}
 
 		// keys for non-persistent preferences
 		const val KEY_APP_VERSION = "app_version"

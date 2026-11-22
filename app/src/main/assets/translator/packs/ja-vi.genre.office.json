@@ -1,0 +1,17 @@
+{
+  "id": "ja-vi.genre.office",
+  "version": 1,
+  "langPair": "ja-vi",
+  "genre": "office",
+  "title": "Công sở",
+  "reviewed": false,
+  "instructions": "Truyện công sở: văn phong lịch sự, đúng thứ bậc. Với cấp trên dùng dạ/vâng, tôi/em; đồng nghiệp ngang cấp dùng anh/chị/em theo tuổi. Chức danh Nhật đi kèm さん/様 (ví dụ 部長さん) thì dịch thành chức danh tiếng Việt (ví dụ trưởng phòng), không thêm đại từ thừa.",
+  "terms": [
+    { "src": "部長", "dst": "trưởng phòng" },
+    { "src": "社長", "dst": "giám đốc" },
+    { "src": "会長", "dst": "chủ tịch" },
+    { "src": "新人", "dst": "nhân viên mới" },
+    { "src": "残業", "dst": "làm thêm giờ" },
+    { "src": "飲み会", "dst": "tiệc công ty" }
+  ]
+}

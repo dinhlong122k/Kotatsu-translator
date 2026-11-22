@@ -27,6 +27,7 @@ import org.koitharu.kotatsu.core.util.ext.recyclerView
 import org.koitharu.kotatsu.core.util.ext.resetTransformations
 import org.koitharu.kotatsu.databinding.FragmentReaderPagerBinding
 import org.koitharu.kotatsu.reader.domain.PageLoader
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 import org.koitharu.kotatsu.reader.ui.ReaderState
 import org.koitharu.kotatsu.reader.ui.pager.standard.NoAnimPageTransformer
 import org.koitharu.kotatsu.reader.ui.pager.standard.PageAnimTransformer
@@ -46,6 +47,9 @@ abstract class BasePagerReaderFragment : BaseReaderFragment<FragmentReaderPagerB
 
 	@Inject
 	lateinit var pageLoader: PageLoader
+
+	@Inject
+	lateinit var translator: TranslationOrchestrator
 
 	private var pagerLifecycleDispatcher: PagerLifecycleDispatcher? = null
 
@@ -145,6 +149,7 @@ abstract class BasePagerReaderFragment : BaseReaderFragment<FragmentReaderPagerB
 		readerSettingsProducer = viewModel.readerSettingsProducer,
 		networkState = networkState,
 		exceptionResolver = exceptionResolver,
+		translator = translator,
 	)
 
 	override fun switchPageBy(delta: Int) {

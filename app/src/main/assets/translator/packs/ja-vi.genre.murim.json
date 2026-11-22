@@ -1,0 +1,16 @@
+{
+  "id": "ja-vi.genre.murim",
+  "version": 1,
+  "langPair": "ja-vi",
+  "genre": "murim",
+  "title": "Võ hiệp / Murim",
+  "reviewed": false,
+  "instructions": "Truyện võ hiệp, tu tiên: dùng văn phong cổ trang, trang trọng. Xưng hô kiểu ta/ngươi, huynh/đệ, sư huynh/sư muội, tiền bối/vãn bối khi hợp ngữ cảnh. Tên chiêu thức và cảnh giới dịch Hán-Việt, giữ nhất quán.",
+  "terms": [
+    { "src": "師匠", "dst": "sư phụ" },
+    { "src": "道場", "dst": "võ đường" },
+    { "src": "流派", "dst": "môn phái" },
+    { "src": "剣士", "dst": "kiếm sĩ" },
+    { "src": "気", "dst": "khí" }
+  ]
+}

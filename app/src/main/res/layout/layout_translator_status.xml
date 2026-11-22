@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:parentTag="android.widget.FrameLayout">
+
+	<LinearLayout
+		android:id="@+id/layout_translator_status"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="top|start"
+		android:layout_margin="@dimen/margin_small"
+		android:background="@drawable/bg_rounded_transparency"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:paddingHorizontal="8dp"
+		android:paddingVertical="4dp"
+		android:visibility="gone"
+		tools:visibility="visible">
+
+		<com.google.android.material.progressindicator.CircularProgressIndicator
+			android:id="@+id/progress_translator"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:indeterminate="true"
+			app:indicatorSize="16dp"
+			app:trackThickness="2dp" />
+
+		<TextView
+			android:id="@+id/textView_translator_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:maxWidth="240dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textAppearance="?textAppearanceBodySmall"
+			android:visibility="gone"
+			tools:text="Translation failed" />
+
+		<Button
+			android:id="@+id/button_translator_retry"
+			style="?borderlessButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="4dp"
+			android:minHeight="32dp"
+			android:text="@string/translator_retranslate"
+			android:visibility="gone" />
+
+	</LinearLayout>
+</merge>

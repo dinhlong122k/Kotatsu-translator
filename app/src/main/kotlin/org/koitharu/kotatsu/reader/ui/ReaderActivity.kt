@@ -27,6 +27,7 @@ import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -69,6 +70,11 @@ import org.koitharu.kotatsu.reader.ui.config.ReaderConfigSheet
 import org.koitharu.kotatsu.reader.ui.pager.ReaderPage
 import org.koitharu.kotatsu.reader.ui.pager.ReaderUiState
 import org.koitharu.kotatsu.reader.ui.tapgrid.TapGridDispatcher
+import org.koitharu.kotatsu.translator.data.TranslatorSecrets
+import org.koitharu.kotatsu.translator.data.TranslatorSettings
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
+import org.koitharu.kotatsu.translator.domain.TranslatorEvent
+import org.koitharu.kotatsu.translator.domain.model.AiProvider
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import androidx.appcompat.R as appcompatR
@@ -99,6 +105,15 @@ class ReaderActivity :
 
     @Inject
     lateinit var screenOrientationHelper: ScreenOrientationHelper
+
+    @Inject
+    lateinit var translator: TranslationOrchestrator
+
+    @Inject
+    lateinit var translatorSettings: TranslatorSettings
+
+    @Inject
+    lateinit var translatorSecrets: TranslatorSecrets
 
     private val idlingDetector = IdlingDetector(TimeUnit.SECONDS.toMillis(10), this)
 
@@ -191,6 +206,8 @@ class ReaderActivity :
         viewModel.readerSettingsProducer.observe(this) {
             viewBinding.infoBar.applyColorScheme(isBlackOnWhite = it.background.isLight(this))
         }
+        translator.isActive.observe(this) { viewBinding.actionsView.setTranslationActive(it) }
+        translator.events.observeEvent(this, ::onTranslatorEvent)
         viewModel.isZoomControlsEnabled.observe(this) {
             viewBinding.zoomControl.isVisible = it
         }
@@ -468,6 +485,49 @@ class ReaderActivity :
         } else {
             viewBinding.timerControl.showOrHide()
         }
+    }
+
+    override fun toggleTranslation() {
+        if (translator.isActive.value) {
+            translator.setActive(false)
+            return
+        }
+        if (!settings.isTranslatorConsentGiven) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.translator_consent_title)
+                .setMessage(R.string.translator_consent_message)
+                .setPositiveButton(R.string.translator_consent_accept) { _, _ ->
+                    settings.isTranslatorConsentGiven = true
+                    toggleTranslation()
+                }
+                .setNeutralButton(R.string.translator_open_settings) { _, _ -> router.openTranslatorSettings() }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
+            return
+        }
+        val provider = translatorSettings.provider
+        if (provider != AiProvider.OPENAI && translatorSecrets.get(provider) == null) {
+            onTranslatorEvent(TranslatorEvent.AuthRequired)
+            return
+        }
+        translatorSettings.isEnabled = true
+        translator.setActive(true)
+    }
+
+    override fun openTranslatorSheet() {
+        router.showTranslatorQuickSheet()
+    }
+
+    private fun onTranslatorEvent(event: TranslatorEvent) {
+        val message = when (event) {
+            TranslatorEvent.AuthRequired -> getString(R.string.translator_error_api_key_missing)
+            TranslatorEvent.QuotaExceeded -> getString(R.string.translator_error_quota)
+            is TranslatorEvent.OcrPackMissing -> getString(R.string.translator_error_ocr_pack_missing, event.pack)
+        }
+        Snackbar.make(viewBinding.container, message, Snackbar.LENGTH_LONG)
+            .setAnchorView(viewBinding.toolbarDocked)
+            .setAction(R.string.translator_open_settings) { router.openTranslatorSettings() }
+            .show()
     }
 
     override fun toggleScreenOrientation() {

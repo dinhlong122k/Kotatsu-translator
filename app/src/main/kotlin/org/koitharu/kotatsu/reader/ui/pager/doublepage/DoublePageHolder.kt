@@ -10,6 +10,7 @@ import org.koitharu.kotatsu.core.os.NetworkState
 import org.koitharu.kotatsu.databinding.ItemPageBinding
 import org.koitharu.kotatsu.reader.domain.PageLoader
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 import org.koitharu.kotatsu.reader.ui.pager.ReaderPage
 import org.koitharu.kotatsu.reader.ui.pager.standard.PageHolder
 
@@ -20,6 +21,7 @@ class DoublePageHolder(
 	readerSettingsProducer: ReaderSettings.Producer,
 	networkState: NetworkState,
 	exceptionResolver: ExceptionResolver,
+	translator: TranslationOrchestrator,
 ) : PageHolder(
 	owner = owner,
 	binding = binding,
@@ -27,6 +29,7 @@ class DoublePageHolder(
 	readerSettingsProducer = readerSettingsProducer,
 	networkState = networkState,
 	exceptionResolver = exceptionResolver,
+	translator = translator,
 ) {
 
 	private val isEven: Boolean

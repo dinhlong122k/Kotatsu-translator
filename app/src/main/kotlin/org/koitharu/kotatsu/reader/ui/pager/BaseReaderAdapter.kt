@@ -9,6 +9,7 @@ import org.koitharu.kotatsu.core.os.NetworkState
 import org.koitharu.kotatsu.core.util.ext.resetTransformations
 import org.koitharu.kotatsu.reader.domain.PageLoader
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -18,6 +19,7 @@ abstract class BaseReaderAdapter<H : BasePageHolder<*>>(
 	private val readerSettingsProducer: ReaderSettings.Producer,
 	private val networkState: NetworkState,
 	private val exceptionResolver: ExceptionResolver,
+	protected val translator: TranslationOrchestrator,
 ) : RecyclerView.Adapter<H>() {
 
 	private val differ = AsyncListDiffer(this, DiffCallback())

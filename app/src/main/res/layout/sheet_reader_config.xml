@@ -192,6 +192,13 @@
                 tools:visibility="visible" />
 
             <org.koitharu.kotatsu.core.ui.widgets.ListItemTextView
+                android:id="@+id/button_translator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ai_translator"
+                app:drawableStartCompat="@drawable/ic_ai_translator" />
+
+            <org.koitharu.kotatsu.core.ui.widgets.ListItemTextView
                 android:id="@+id/button_scroll_timer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

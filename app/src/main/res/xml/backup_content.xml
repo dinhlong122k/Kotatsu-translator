@@ -9,4 +9,7 @@
 	<exclude domain="database" />
 	<exclude domain="device_database" />
 	<exclude domain="external" />
+	<exclude
+		domain="sharedpref"
+		path="translator_secrets.xml" />
 </full-backup-content>

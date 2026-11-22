@@ -1,0 +1,20 @@
+{
+  "id": "genre.murim",
+  "version": 1,
+  "langPair": "ko-vi",
+  "genre": "murim",
+  "title": "Võ hiệp / Murim",
+  "instructions": "Truyện võ hiệp, tu tiên: dùng văn phong cổ trang, trang trọng. Xưng hô kiểu ta/ngươi, huynh/đệ, sư huynh/sư muội, tiền bối/vãn bối khi hợp ngữ cảnh. Tên chiêu thức và cảnh giới dịch Hán-Việt, giữ nhất quán. Cảnh giới tu luyện thường theo thứ tự: 삼류 -> tam lưu, 이류 -> nhị lưu, 일류 -> nhất lưu, 절정 -> tuyệt đỉnh, 초절정 -> siêu tuyệt đỉnh, 화경 -> hóa cảnh, 현경 -> huyền cảnh.",
+  "terms": [
+    { "src": "사부", "dst": "sư phụ" },
+    { "src": "무림", "dst": "võ lâm" },
+    { "src": "내공", "dst": "nội công" },
+    { "src": "문파", "dst": "môn phái" },
+    { "src": "사형", "dst": "sư huynh" },
+    { "src": "사매", "dst": "sư muội" },
+    { "src": "장문인", "dst": "chưởng môn" },
+    { "src": "기", "dst": "khí" },
+    { "src": "단전", "dst": "đan điền" },
+    { "src": "마교", "dst": "ma giáo" }
+  ]
+}

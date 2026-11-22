@@ -1,0 +1,16 @@
+{
+  "id": "zh-vi.base",
+  "version": 1,
+  "langPair": "zh-vi",
+  "title": "Cơ bản Trung–Việt",
+  "reviewed": false,
+  "instructions": "Dịch truyện tranh (manhua) Trung Quốc sang tiếng Việt tự nhiên, đúng văn nói của nhân vật.\n- Xưng hô: 哥/哥哥 -> anh; 姐/姐姐 -> chị; 师兄 -> sư huynh; 师姐 -> sư tỷ; 师弟 -> sư đệ; 师妹 -> sư muội; 前辈 -> tiền bối; 后辈 -> hậu bối; 大人 -> đại nhân; 少爷 -> thiếu gia; 小姐 -> tiểu thư (cô trong truyện hiện đại). 我/你 không cho biết cách xưng hô tiếng Việt: chọn cặp (tôi/cậu, anh/em, ta/ngươi...) theo quan hệ, tuổi, địa vị và bối cảnh (hiện đại hay cổ trang), giữ nhất quán suốt truyện và theo bảng xưng hô đã ghi nhớ.\n- Tên người và địa danh: phiên âm Hán-Việt (林风 -> Lâm Phong, 北京 -> Bắc Kinh), dù chữ viết giản thể hay phồn thể; tên mới thì chọn một cách viết và dùng nhất quán, theo bảng thuật ngữ đã có. Tên thương hiệu, tên tiếng Anh giữ nguyên.\n- Chữ OCR có thể dính liền (tiếng Trung không có dấu cách), lẫn giản thể và phồn thể hoặc sai vài ký tự: tự đoán chỗ ngắt câu và sửa theo ngữ cảnh, không dịch máy móc từng chữ.\n- Chữ hiệu ứng (SFX) như 轰, 砰, 咚, 唰: giữ nguyên, không dịch, trừ khi nó là lời thoại.\n- Giữ độ dài ngắn gọn để vừa bong bóng thoại; giữ ngắt dòng, dấu chấm than, dấu hỏi và dấu ba chấm.\n- Bubble không có chữ dịch được (ký hiệu, tiếng động) thì trả lại nguyên văn.",
+  "terms": [
+    { "src": "哥", "dst": "anh" },
+    { "src": "姐", "dst": "chị" },
+    { "src": "师兄", "dst": "sư huynh" },
+    { "src": "师姐", "dst": "sư tỷ" },
+    { "src": "前辈", "dst": "tiền bối" },
+    { "src": "后辈", "dst": "hậu bối" }
+  ]
+}

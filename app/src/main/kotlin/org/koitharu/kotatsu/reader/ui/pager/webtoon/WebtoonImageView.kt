@@ -9,12 +9,16 @@ import androidx.core.view.ancestors
 import androidx.recyclerview.widget.RecyclerView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import org.koitharu.kotatsu.core.util.ext.resolveDp
+import org.koitharu.kotatsu.translator.ui.TranslationOverlayController
+import org.koitharu.kotatsu.translator.ui.TranslationOverlayHost
 import kotlin.math.roundToInt
 
 class WebtoonImageView @JvmOverloads constructor(
 	context: Context,
 	attr: AttributeSet? = null,
-) : SubsamplingScaleImageView(context, attr) {
+) : SubsamplingScaleImageView(context, attr), TranslationOverlayHost {
+
+	override val overlayController = TranslationOverlayController(this)
 
 	private val ct = PointF()
 
@@ -23,6 +27,7 @@ class WebtoonImageView @JvmOverloads constructor(
 
 	override fun onDraw(canvas: Canvas) {
 		super.onDraw(canvas)
+		overlayController.draw(canvas)
 		if (isDebugDrawingEnabled) {
 			drawDebug(canvas)
 		}

@@ -26,6 +26,7 @@ import org.koitharu.kotatsu.core.ui.widgets.ZoomControl
 import org.koitharu.kotatsu.databinding.ItemPageBinding
 import org.koitharu.kotatsu.reader.domain.PageLoader
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 import org.koitharu.kotatsu.reader.ui.pager.BasePageHolder
 import org.koitharu.kotatsu.reader.ui.pager.ReaderPage
 
@@ -36,12 +37,14 @@ open class PageHolder(
 	readerSettingsProducer: ReaderSettings.Producer,
 	networkState: NetworkState,
 	exceptionResolver: ExceptionResolver,
+	translator: TranslationOrchestrator,
 ) : BasePageHolder<ItemPageBinding>(
 	binding = binding,
 	loader = loader,
 	readerSettingsProducer = readerSettingsProducer,
 	networkState = networkState,
 	exceptionResolver = exceptionResolver,
+	translator = translator,
 	lifecycleOwner = owner,
 ), ZoomControl.ZoomControlListener, OnApplyWindowInsetsListener {
 

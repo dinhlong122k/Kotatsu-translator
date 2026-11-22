@@ -1,0 +1,17 @@
+{
+  "id": "en-vi.genre.office",
+  "version": 1,
+  "langPair": "en-vi",
+  "genre": "office",
+  "title": "Công sở",
+  "reviewed": false,
+  "instructions": "Truyện công sở: văn phong lịch sự, đúng thứ bậc. Với cấp trên dùng dạ/vâng, tôi/em; đồng nghiệp ngang cấp dùng anh/chị/em theo tuổi. Chức danh (manager, director, CEO...) thì dịch thành chức danh tiếng Việt (ví dụ trưởng phòng, giám đốc), không thêm đại từ thừa.",
+  "terms": [
+    { "src": "manager", "dst": "quản lý" },
+    { "src": "director", "dst": "giám đốc" },
+    { "src": "CEO", "dst": "tổng giám đốc" },
+    { "src": "coworker", "dst": "đồng nghiệp" },
+    { "src": "intern", "dst": "thực tập sinh" },
+    { "src": "overtime", "dst": "làm thêm giờ" }
+  ]
+}

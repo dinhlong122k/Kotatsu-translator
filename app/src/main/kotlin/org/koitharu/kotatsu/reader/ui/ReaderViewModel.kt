@@ -65,7 +65,9 @@ import org.koitharu.kotatsu.parsers.util.sizeOrZero
 import org.koitharu.kotatsu.reader.domain.ChaptersLoader
 import org.koitharu.kotatsu.reader.domain.DetectReaderModeUseCase
 import org.koitharu.kotatsu.reader.domain.PageLoader
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
+import org.koitharu.kotatsu.reader.ui.pager.ReaderPage
 import org.koitharu.kotatsu.reader.ui.pager.ReaderUiState
 import org.koitharu.kotatsu.scrobbling.discord.ui.DiscordRpc
 import org.koitharu.kotatsu.stats.domain.StatsCollector
@@ -83,6 +85,7 @@ class ReaderViewModel @Inject constructor(
     private val bookmarksRepository: BookmarksRepository,
     settings: AppSettings,
     private val pageLoader: PageLoader,
+    private val translator: TranslationOrchestrator,
     private val chaptersLoader: ChaptersLoader,
     private val appShortcutManager: AppShortcutManager,
     private val detailsLoadUseCase: DetailsLoadUseCase,
@@ -349,6 +352,7 @@ class ReaderViewModel @Inject constructor(
                 }
             }
             notifyStateChanged()
+            notifyTranslator(pages, lowerPos, upperPos, centerPos)
             if (pages.isEmpty() || loadingJob?.isActive == true) {
                 return@launchJob
             }
@@ -364,6 +368,28 @@ class ReaderViewModel @Inject constructor(
             }
             if (pageLoader.isPrefetchApplicable()) {
                 pageLoader.prefetch(pages.trySublist(upperPos + 1, upperPos + PREFETCH_LIMIT))
+            }
+        }
+    }
+
+    private fun notifyTranslator(pages: List<ReaderPage>, lowerPos: Int, upperPos: Int, centerPos: Int) {
+        val manga = mangaDetails.value?.toManga() ?: return
+        val current = pages.getOrNull(centerPos) ?: return
+        translator.onPositionChanged(
+            manga = manga,
+            chapterId = current.chapterId,
+            pages = pages,
+            lowerPos = lowerPos,
+            upperPos = upperPos,
+            isWebtoon = readerMode.value == ReaderMode.WEBTOON,
+        )
+        // prefetch the next chapter when 12 pages or fewer remain, or half of the chapter is read
+        val chapterPages = pages.count { it.chapterId == current.chapterId }
+        val remaining = chapterPages - current.index - 1
+        if (remaining <= 12 || current.index * 2 >= chapterPages) {
+            val next = pages.getOrNull(centerPos + remaining + 1)
+            if (next != null && next.chapterId != current.chapterId) {
+                translator.prefetchChapter(manga, next.chapterId, pages)
             }
         }
     }
@@ -417,6 +443,7 @@ class ReaderViewModel @Inject constructor(
                         }
                         chaptersLoader.init(details)
                         val manga = details.toManga()
+                        translator.onMangaOpened(manga)
                         // obtain state
                         if (readingState.value == null) {
                             val newState = getStateFromIntent(manga)

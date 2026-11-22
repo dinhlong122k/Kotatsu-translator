@@ -1,0 +1,19 @@
+{
+  "id": "zh-vi.genre.system",
+  "version": 1,
+  "langPair": "zh-vi",
+  "genre": "system",
+  "title": "Hệ thống / Game",
+  "reviewed": false,
+  "instructions": "Truyện hệ thống, game, hầm ngục: thông báo hệ thống (trong khung, ngoặc vuông) dịch ngắn gọn, giọng máy móc, giữ nguyên ngoặc và con số. Tên kỹ năng, vật phẩm: chọn một cách dịch hoặc để nguyên tiếng Anh nếu truyện dùng tiếng Anh, rồi dùng nhất quán.",
+  "terms": [
+    { "src": "系统", "dst": "hệ thống" },
+    { "src": "等级", "dst": "cấp độ" },
+    { "src": "技能", "dst": "kỹ năng" },
+    { "src": "副本", "dst": "phó bản" },
+    { "src": "任务", "dst": "nhiệm vụ" },
+    { "src": "道具", "dst": "vật phẩm" },
+    { "src": "经验值", "dst": "điểm kinh nghiệm" },
+    { "src": "属性面板", "dst": "bảng thuộc tính" }
+  ]
+}

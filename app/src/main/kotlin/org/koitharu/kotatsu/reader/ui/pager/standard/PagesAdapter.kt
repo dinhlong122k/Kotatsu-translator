@@ -9,6 +9,7 @@ import org.koitharu.kotatsu.databinding.ItemPageBinding
 import org.koitharu.kotatsu.reader.domain.PageLoader
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
 import org.koitharu.kotatsu.reader.ui.pager.BaseReaderAdapter
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
 
 class PagesAdapter(
 	private val lifecycleOwner: LifecycleOwner,
@@ -16,11 +17,13 @@ class PagesAdapter(
 	readerSettingsProducer: ReaderSettings.Producer,
 	networkState: NetworkState,
 	exceptionResolver: ExceptionResolver,
+	translator: TranslationOrchestrator,
 ) : BaseReaderAdapter<PageHolder>(
 	loader = loader,
 	readerSettingsProducer = readerSettingsProducer,
 	networkState = networkState,
 	exceptionResolver = exceptionResolver,
+	translator = translator,
 ) {
 
 	override fun onCreateViewHolder(
@@ -36,5 +39,6 @@ class PagesAdapter(
 		readerSettingsProducer = readerSettingsProducer,
 		networkState = networkState,
 		exceptionResolver = exceptionResolver,
+		translator = translator,
 	)
 }

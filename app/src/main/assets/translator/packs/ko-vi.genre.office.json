@@ -1,0 +1,18 @@
+{
+  "id": "genre.office",
+  "version": 1,
+  "langPair": "ko-vi",
+  "genre": "office",
+  "title": "Công sở",
+  "instructions": "Truyện công sở: văn phong lịch sự, đúng thứ bậc. Chức danh Hàn đi kèm -님 thì dịch thành chức danh tiếng Việt (ví dụ trưởng phòng), không thêm đại từ thừa. Với cấp trên dùng dạ/vâng, tôi/em; đồng nghiệp ngang cấp dùng anh/chị/em theo tuổi.",
+  "terms": [
+    { "src": "부장님", "dst": "trưởng phòng" },
+    { "src": "대리", "dst": "trợ lý" },
+    { "src": "과장", "dst": "phó phòng" },
+    { "src": "사장님", "dst": "giám đốc" },
+    { "src": "회장님", "dst": "chủ tịch" },
+    { "src": "팀장", "dst": "trưởng nhóm" },
+    { "src": "신입", "dst": "nhân viên mới" },
+    { "src": "회식", "dst": "tiệc công ty" }
+  ]
+}

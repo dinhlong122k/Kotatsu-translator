@@ -1,0 +1,9 @@
+{
+  "id": "generic",
+  "version": 1,
+  "langPair": "generic",
+  "title": "General rules",
+  "reviewed": false,
+  "instructions": "Translate comic speech bubbles naturally, as the characters would speak in the target language.\n- Honorifics, titles and forms of address: make them natural for the target language. Translate them or drop them when keeping them would sound odd, and choose address terms (pronouns, titles) by relationship, age and status. Stay consistent through the series and follow the addressing table.\n- OCR text may be joined, lack spaces or have a few wrong characters: infer word boundaries and fix errors from context instead of translating literally.\n- Sound effects (SFX) are kept as they are, unless the text is spoken dialogue.\n- Keep the length close to the source so it fits the speech bubble; keep line breaks, exclamation marks, question marks and ellipses.\n- Proper names: follow the pinned and glossary names; for a new name choose one spelling and use it consistently.\n- A bubble with nothing translatable (symbols, noises) is returned unchanged.",
+  "terms": []
+}

@@ -22,6 +22,7 @@ import org.koitharu.kotatsu.settings.about.AboutSettingsFragment
 import org.koitharu.kotatsu.settings.discord.DiscordSettingsFragment
 import org.koitharu.kotatsu.settings.sources.SourcesSettingsFragment
 import org.koitharu.kotatsu.settings.tracker.TrackerSettingsFragment
+import org.koitharu.kotatsu.settings.translator.TranslatorSettingsFragment
 import org.koitharu.kotatsu.settings.userdata.BackupsSettingsFragment
 import org.koitharu.kotatsu.settings.userdata.storage.DataCleanupSettingsFragment
 import javax.inject.Inject
@@ -54,6 +55,12 @@ class SettingsSearchHelper @Inject constructor(
         preferenceManager.inflateTo(result, R.xml.pref_downloads, emptyList(), DownloadsSettingsFragment::class.java)
         preferenceManager.inflateTo(result, R.xml.pref_tracker, emptyList(), TrackerSettingsFragment::class.java)
         preferenceManager.inflateTo(result, R.xml.pref_services, emptyList(), ServicesSettingsFragment::class.java)
+        preferenceManager.inflateTo(
+            result,
+            R.xml.pref_translator,
+            emptyList(),
+            TranslatorSettingsFragment::class.java,
+        )
         preferenceManager.inflateTo(result, R.xml.pref_about, emptyList(), AboutSettingsFragment::class.java)
         preferenceManager.inflateTo(
             result,

@@ -14,4 +14,5 @@ enum class TapAction(
 	CHAPTER_PREV(R.string.prev_chapter, 0x7E1218),
 	TOGGLE_UI(R.string.toggle_ui, 0x3D69C5),
 	SHOW_MENU(R.string.show_menu, 0xAA1AC5),
+	TOGGLE_TRANSLATION(R.string.translator_toggle, 0xE0A800),
 }

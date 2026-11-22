@@ -104,6 +104,7 @@ class ReaderConfigSheet :
         binding.buttonImageServer.setOnClickListener(this)
         binding.buttonColorFilter.setOnClickListener(this)
         binding.buttonScrollTimer.setOnClickListener(this)
+        binding.buttonTranslator.setOnClickListener(this)
         binding.buttonBookmark.setOnClickListener(this)
         binding.switchDoubleReader.setOnCheckedChangeListener(this)
         binding.switchDoubleFoldable.setOnCheckedChangeListener(this)
@@ -137,6 +138,11 @@ class ReaderConfigSheet :
         when (v.id) {
             R.id.button_settings -> {
                 router.openReaderSettings()
+                dismissAllowingStateLoss()
+            }
+
+            R.id.button_translator -> {
+                findParentCallback(Callback::class.java)?.openTranslatorSheet() ?: return
                 dismissAllowingStateLoss()
             }
 
@@ -277,5 +283,7 @@ class ReaderConfigSheet :
         fun onScrollTimerClick(isLongClick: Boolean)
 
         fun onBookmarkClick()
+
+        fun openTranslatorSheet()
     }
 }

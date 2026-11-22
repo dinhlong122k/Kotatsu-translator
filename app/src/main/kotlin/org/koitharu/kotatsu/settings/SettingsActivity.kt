@@ -39,6 +39,7 @@ import org.koitharu.kotatsu.settings.sources.SourceSettingsFragment
 import org.koitharu.kotatsu.settings.sources.SourcesSettingsFragment
 import org.koitharu.kotatsu.settings.sources.manage.SourcesManageFragment
 import org.koitharu.kotatsu.settings.tracker.TrackerSettingsFragment
+import org.koitharu.kotatsu.settings.translator.TranslatorSettingsFragment
 import org.koitharu.kotatsu.settings.userdata.BackupsSettingsFragment
 
 @AndroidEntryPoint
@@ -152,6 +153,7 @@ class SettingsActivity :
 			AppRouter.ACTION_SOURCES -> SourcesSettingsFragment()
 			AppRouter.ACTION_MANAGE_DISCORD -> DiscordSettingsFragment()
 			AppRouter.ACTION_PROXY -> ProxySettingsFragment()
+			AppRouter.ACTION_TRANSLATOR -> TranslatorSettingsFragment()
 			AppRouter.ACTION_MANAGE_DOWNLOADS -> DownloadsSettingsFragment()
 			AppRouter.ACTION_SOURCE -> SourceSettingsFragment.newInstance(
 				MangaSource(intent.getStringExtra(AppRouter.KEY_SOURCE)),

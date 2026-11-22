@@ -1,0 +1,15 @@
+{
+  "id": "ko-vi.base",
+  "version": 1,
+  "langPair": "ko-vi",
+  "title": "Cơ bản Hàn–Việt",
+  "instructions": "Dịch truyện tranh (manhwa) Hàn Quốc sang tiếng Việt tự nhiên, đúng văn nói của nhân vật.\n- Kính ngữ và xưng hô: 형/오빠 -> anh; 누나/언니 -> chị; 선배 -> tiền bối; 후배 -> hậu bối; 동생 -> em. Đuôi -님 tuỳ ngữ cảnh: dịch thành ngài/quý/ông/bà/cô hoặc bỏ nếu tiếng Việt nghe thừa. Chọn cặp xưng hô (tôi/cậu, anh/em, ta/ngươi...) theo quan hệ và địa vị, giữ nhất quán suốt truyện và theo bảng xưng hô đã ghi nhớ.\n- Chữ OCR có thể dính liền, thiếu dấu cách hoặc sai vài ký tự: tự đoán chỗ ngắt từ và sửa theo ngữ cảnh, không dịch máy móc từng chữ.\n- Chữ hiệu ứng (SFX) như 쾅, 두근, 휙: giữ nguyên, không dịch, trừ khi nó là lời thoại.\n- Giữ độ dài ngắn gọn để vừa bong bóng thoại; giữ ngắt dòng, dấu chấm than, dấu hỏi và dấu ba chấm.\n- Tên riêng: phiên âm Hán-Việt hoặc Latin theo bảng thuật ngữ đã có; tên mới thì chọn một cách viết và dùng nhất quán.\n- Bubble không có chữ dịch được (ký hiệu, tiếng động) thì trả lại nguyên văn.",
+  "terms": [
+    { "src": "형", "dst": "anh" },
+    { "src": "오빠", "dst": "anh" },
+    { "src": "누나", "dst": "chị" },
+    { "src": "언니", "dst": "chị" },
+    { "src": "선배", "dst": "tiền bối" },
+    { "src": "후배", "dst": "hậu bối" }
+  ]
+}

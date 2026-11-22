@@ -1,0 +1,17 @@
+{
+  "id": "ja-vi.base",
+  "version": 1,
+  "langPair": "ja-vi",
+  "title": "Cơ bản Nhật–Việt",
+  "reviewed": false,
+  "instructions": "Dịch truyện tranh (manga) Nhật Bản sang tiếng Việt tự nhiên, đúng văn nói của nhân vật.\n- Hậu tố và kính ngữ: さん -> anh/chị/ông/bà/cô/bạn tuỳ quan hệ, hoặc bỏ; 君 (くん) -> cậu/em/bạn, hoặc bỏ; ちゃん -> bé/em, hoặc bỏ nếu nghe thừa; 先輩 -> tiền bối (anh/chị khi thân); 後輩 -> hậu bối; 先生 -> thầy/cô/bác sĩ tuỳ nghề; 様 -> ngài/quý, hoặc bỏ. Không giữ nguyên hậu tố trừ khi bảng tên ghim yêu cầu. Chọn cặp xưng hô (tôi/cậu, anh/em, tớ/cậu, ta/ngươi...) theo quan hệ, tuổi và địa vị, vì 私/僕/俺/あなた/お前 không quyết định cách xưng hô tiếng Việt; giữ nhất quán suốt truyện và theo bảng xưng hô đã ghi nhớ.\n- Đuôi câu như ね, よ, ぞ, わ, だぜ: thể hiện bằng từ đệm tiếng Việt (nhé, nhỉ, đấy, mà) vừa phải, đừng lạm dụng.\n- Furigana (chữ kana nhỏ chú âm cạnh chữ Hán) có thể bị OCR đọc lẫn vào dòng chính: nếu thấy dãy kana lặp lại cách đọc của chữ Hán ngay cạnh nó thì bỏ phần lặp, chỉ dịch một lần.\n- Chữ OCR có thể dính liền, thiếu dấu cách hoặc sai vài ký tự: tự đoán chỗ ngắt từ và sửa theo ngữ cảnh, không dịch máy móc từng chữ.\n- Chữ hiệu ứng (SFX) như ドン, ゴゴゴ, ドキドキ: giữ nguyên, không dịch, trừ khi nó là lời thoại.\n- Giữ độ dài ngắn gọn để vừa bong bóng thoại; giữ ngắt dòng, dấu chấm than, dấu hỏi và dấu ba chấm.\n- Tên riêng: phiên âm Latinh (Hepburn) theo bảng thuật ngữ đã có; tên mới thì chọn một cách viết và dùng nhất quán.\n- Bubble không có chữ dịch được (ký hiệu, tiếng động) thì trả lại nguyên văn.",
+  "terms": [
+    { "src": "先輩", "dst": "tiền bối" },
+    { "src": "後輩", "dst": "hậu bối" },
+    { "src": "先生", "dst": "thầy/cô" },
+    { "src": "お兄ちゃん", "dst": "anh" },
+    { "src": "お姉ちゃん", "dst": "chị" },
+    { "src": "兄さん", "dst": "anh" },
+    { "src": "姉さん", "dst": "chị" }
+  ]
+}

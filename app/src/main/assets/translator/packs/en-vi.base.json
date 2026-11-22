@@ -1,0 +1,9 @@
+{
+  "id": "en-vi.base",
+  "version": 1,
+  "langPair": "en-vi",
+  "title": "Cơ bản Anh–Việt",
+  "reviewed": false,
+  "instructions": "Dịch truyện tranh tiếng Anh (comic, webtoon) sang tiếng Việt tự nhiên, đúng văn nói của nhân vật.\n- Xưng hô: I/you/we không cho biết cách xưng hô tiếng Việt. Chọn cặp (tôi/cậu, anh/em, chị/em, tớ/cậu, ta/ngươi, tao/mày...) theo quan hệ, tuổi, địa vị, độ thân và giọng điệu của từng nhân vật; giữ nhất quán suốt truyện và theo bảng xưng hô đã ghi nhớ. Chưa rõ quan hệ thì dùng tôi/bạn hoặc diễn đạt không cần đại từ, đừng đoán bừa.\n- Sir, ma'am, Mr., Ms., Miss: dịch thành ngài/ông/bà/anh/chị/cô tuỳ ngữ cảnh, hoặc bỏ nếu tiếng Việt nghe thừa.\n- Chữ in hoa toàn bộ trong bong bóng thường chỉ là kiểu chữ truyện tranh: dịch bình thường, giữ dấu chấm than.\n- Chữ OCR có thể dính liền, thiếu dấu cách hoặc nhầm ký tự giống nhau (I/l/1, O/0, rn/m): tự đoán và sửa theo ngữ cảnh, không dịch máy móc từng chữ.\n- Chữ hiệu ứng (SFX) như BOOM, THUD, SLAM: giữ nguyên, không dịch, trừ khi nó là lời thoại.\n- Giữ độ dài ngắn gọn để vừa bong bóng thoại; giữ ngắt dòng, dấu chấm than, dấu hỏi và dấu ba chấm.\n- Tên riêng: giữ nguyên chữ Latin trừ khi bảng thuật ngữ có cách dịch; tên mới thì chọn một cách viết và dùng nhất quán.\n- Bubble không có chữ dịch được (ký hiệu, tiếng động) thì trả lại nguyên văn.",
+  "terms": []
+}

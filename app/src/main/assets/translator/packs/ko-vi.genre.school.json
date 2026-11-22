@@ -1,0 +1,17 @@
+{
+  "id": "genre.school",
+  "version": 1,
+  "langPair": "ko-vi",
+  "genre": "school",
+  "title": "Học đường",
+  "instructions": "Truyện học đường: văn phong trẻ trung, đời thường. Giữa bạn cùng lớp dùng tớ/cậu hoặc tao/mày tuỳ độ thân; với giáo viên dùng em/thầy, em/cô; với đàn anh đàn chị dùng em/anh, em/chị hoặc tiền bối. Câu nói với thầy cô, đàn anh thì lễ phép hơn.",
+  "terms": [
+    { "src": "선생님", "dst": "thầy/cô" },
+    { "src": "반장", "dst": "lớp trưởng" },
+    { "src": "전학생", "dst": "học sinh chuyển trường" },
+    { "src": "교장", "dst": "hiệu trưởng" },
+    { "src": "동아리", "dst": "câu lạc bộ" },
+    { "src": "학원", "dst": "trung tâm học thêm" },
+    { "src": "동급생", "dst": "bạn cùng khối" }
+  ]
+}

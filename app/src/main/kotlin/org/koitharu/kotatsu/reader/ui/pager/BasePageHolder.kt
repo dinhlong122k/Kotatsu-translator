@@ -14,6 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.davemorrissey.labs.subscaleview.DefaultOnImageEventListener
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koitharu.kotatsu.BuildConfig
 import org.koitharu.kotatsu.R
@@ -25,12 +26,17 @@ import org.koitharu.kotatsu.core.util.ext.isLowRamDevice
 import org.koitharu.kotatsu.core.util.ext.isSerializable
 import org.koitharu.kotatsu.core.util.ext.observe
 import org.koitharu.kotatsu.databinding.LayoutPageInfoBinding
+import org.koitharu.kotatsu.databinding.LayoutTranslatorStatusBinding
 import org.koitharu.kotatsu.parsers.util.ifZero
 import org.koitharu.kotatsu.reader.domain.PageLoader
 import org.koitharu.kotatsu.reader.ui.config.ReaderSettings
 import org.koitharu.kotatsu.reader.ui.pager.vm.PageState
 import org.koitharu.kotatsu.reader.ui.pager.vm.PageViewModel
 import org.koitharu.kotatsu.reader.ui.pager.webtoon.WebtoonHolder
+import org.koitharu.kotatsu.translator.domain.TranslationOrchestrator
+import org.koitharu.kotatsu.translator.domain.model.PageTranslation
+import org.koitharu.kotatsu.translator.ui.TranslationOverlayController
+import org.koitharu.kotatsu.translator.ui.TranslationOverlayHost
 
 abstract class BasePageHolder<B : ViewBinding>(
 	protected val binding: B,
@@ -38,6 +44,7 @@ abstract class BasePageHolder<B : ViewBinding>(
 	readerSettingsProducer: ReaderSettings.Producer,
 	networkState: NetworkState,
 	exceptionResolver: ExceptionResolver,
+	private val translator: TranslationOrchestrator,
 	lifecycleOwner: LifecycleOwner,
 ) : LifecycleAwareViewHolder(binding.root, lifecycleOwner), DefaultOnImageEventListener, ComponentCallbacks2 {
 
@@ -49,7 +56,14 @@ abstract class BasePageHolder<B : ViewBinding>(
 		isWebtoon = this is WebtoonHolder,
 	)
 	protected val bindingInfo = LayoutPageInfoBinding.bind(binding.root)
+	private val bindingTranslation = LayoutTranslatorStatusBinding.bind(binding.root)
 	protected abstract val ssiv: SubsamplingScaleImageView
+
+	private var translationJob: Job? = null
+
+	/** `ssiv` is set by the subclass, so this must not be read while the holder is being constructed */
+	private val overlayController: TranslationOverlayController?
+		get() = (ssiv as? TranslationOverlayHost)?.overlayController
 
 	protected val settings: ReaderSettings
 		get() = viewModel.settingsProducer.value
@@ -79,6 +93,9 @@ abstract class BasePageHolder<B : ViewBinding>(
 		}
 		bindingInfo.buttonRetry.setOnClickListener(clickListener)
 		bindingInfo.buttonErrorDetails.setOnClickListener(clickListener)
+		bindingTranslation.buttonTranslatorRetry.setOnClickListener {
+			boundData?.let { translator.retry(it.id) }
+		}
 	}
 
 	@CallSuper
@@ -90,6 +107,9 @@ abstract class BasePageHolder<B : ViewBinding>(
 			onReady()
 		}
 		ssiv.applyDownSampling(isResumed())
+		if (translator.isActive.value) {
+			overlayController?.setColorFilter(settings.colorFilter?.toColorFilter())
+		}
 	}
 
 	fun reloadImage() {
@@ -101,6 +121,10 @@ abstract class BasePageHolder<B : ViewBinding>(
 		boundData = data
 		viewModel.onBind(data.toMangaPage())
 		onBind(data)
+		translationJob?.cancel()
+		translationJob = lifecycleScope.launch {
+			translator.observe(data.id).collect { onTranslationChanged(it) }
+		}
 	}
 
 	@CallSuper
@@ -111,6 +135,8 @@ abstract class BasePageHolder<B : ViewBinding>(
 		context.registerComponentCallbacks(this)
 		viewModel.state.observe(this, ::onStateChanged)
 		viewModel.settingsProducer.observe(this, ::onConfigChanged)
+		translator.isShowingOriginal.observe(this) { overlayController?.setHidden(it) }
+		translator.fontScale.observe(this) { overlayController?.setFontScale(it) }
 	}
 
 	override fun onResume() {
@@ -137,6 +163,11 @@ abstract class BasePageHolder<B : ViewBinding>(
 
 	@CallSuper
 	open fun onRecycled() {
+		translationJob?.cancel()
+		translationJob = null
+		onTranslationChanged(PageTranslation.Idle)
+		overlayController?.setCrop(null)
+		overlayController?.setImageFinal(false)
 		viewModel.onRecycle()
 		ssiv.recycle()
 	}
@@ -150,7 +181,35 @@ abstract class BasePageHolder<B : ViewBinding>(
 	@Deprecated("Deprecated in Java")
 	final override fun onLowMemory() = onTrimMemory(TRIM_MEMORY_COMPLETE)
 
+	private fun onTranslationChanged(state: PageTranslation) {
+		val info = bindingTranslation
+		if (state is PageTranslation.Ready) {
+			overlayController?.apply {
+				setColorFilter(settings.colorFilter?.toColorFilter())
+				setCrop(viewModel.cropBounds)
+				setImageFinal(viewModel.state.value is PageState.Shown)
+			}
+		}
+		overlayController?.setTranslation(state)
+		val isPending = state is PageTranslation.Pending
+		val isFailed = state is PageTranslation.Failed
+		val isPartial = state is PageTranslation.Ready && state.isPartial
+		info.layoutTranslatorStatus.isVisible = isPending || isFailed || isPartial
+		info.progressTranslator.isVisible = isPending
+		info.textViewTranslatorStatus.isVisible = isFailed || isPartial
+		info.buttonTranslatorRetry.isVisible = isFailed || isPartial
+		if (state is PageTranslation.Failed) {
+			info.textViewTranslatorStatus.text = state.error.getDisplayMessage(context.resources)
+		} else if (isPartial) {
+			info.textViewTranslatorStatus.setText(R.string.translator_reader_partial)
+		}
+	}
+
 	protected open fun onStateChanged(state: PageState) {
+		if (translator.isActive.value) {
+			overlayController?.setCrop(viewModel.cropBounds)
+			overlayController?.setImageFinal(state is PageState.Shown)
+		}
 		bindingInfo.layoutError.isVisible = state is PageState.Error
 		bindingInfo.layoutProgress.isGone = state.isFinalState()
 		val progress = (state as? PageState.Loading)?.progress ?: -1

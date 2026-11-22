@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:title="@string/ai_translator">
+
+	<Preference
+		android:key="translator_pack_warning"
+		android:persistent="false"
+		android:title="@string/translator_settings_pack_missing"
+		android:visible="false" />
+
+	<Preference
+		android:key="translator_privacy"
+		android:persistent="false"
+		android:selectable="false"
+		android:summary="@string/translator_settings_privacy_summary"
+		android:title="@string/translator_settings_privacy" />
+
+	<PreferenceCategory
+		android:key="translator_group_general"
+		android:title="@string/translator_group_general">
+
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="translator_enabled"
+			android:summary="@string/translator_enabled_summary"
+			android:title="@string/translator_enabled" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:dependency="translator_enabled"
+			android:key="translator_auto_on_open"
+			android:summary="@string/translator_auto_on_open_summary"
+			android:title="@string/translator_auto_on_open" />
+
+		<Preference
+			android:key="translator_auto_sources"
+			android:persistent="false"
+			android:title="@string/translator_auto_sources" />
+
+		<ListPreference
+			android:defaultValue="auto"
+			android:key="translator_source_lang"
+			android:title="@string/translator_source_language"
+			app:useSimpleSummaryProvider="true" />
+
+		<ListPreference
+			android:defaultValue="vi"
+			android:key="translator_target_lang"
+			android:title="@string/translator_target_language"
+			app:useSimpleSummaryProvider="true" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="translator_group_ai"
+		android:title="@string/translator_group_ai">
+
+		<ListPreference
+			android:defaultValue="GEMINI"
+			android:key="translator_provider"
+			android:title="@string/translator_provider"
+			app:useSimpleSummaryProvider="true" />
+
+		<EditTextPreference
+			android:dialogMessage="@string/translator_settings_api_key_dialog"
+			android:key="translator_api_key"
+			android:persistent="false"
+			android:title="@string/translator_api_key" />
+
+		<EditTextPreference
+			android:key="translator_openai_base_url"
+			android:summary="@string/translator_base_url_summary"
+			android:title="@string/translator_base_url" />
+
+		<ListPreference
+			android:key="translator_model"
+			android:persistent="false"
+			android:title="@string/translator_model" />
+
+		<Preference
+			android:key="translator_model_refresh"
+			android:persistent="false"
+			android:summary="@string/translator_model_refresh_summary"
+			android:title="@string/translator_model_refresh" />
+
+		<EditTextPreference
+			android:key="translator_model_manual"
+			android:persistent="false"
+			android:summary="@string/translator_settings_model_manual_summary"
+			android:title="@string/translator_model_manual" />
+
+		<Preference
+			android:key="translator_test"
+			android:persistent="false"
+			android:summary="@string/translator_test_connection_summary"
+			android:title="@string/translator_test_connection" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="translator_fallback"
+			android:summary="@string/translator_fallback_summary"
+			android:title="@string/translator_fallback" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="translator_hedging"
+			android:summary="@string/translator_hedging_summary"
+			android:title="@string/translator_hedging" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="translator_group_ocr"
+		android:title="@string/translator_group_ocr">
+
+		<ListPreference
+			android:defaultValue="FAST"
+			android:key="translator_ocr_mode"
+			android:title="@string/translator_ocr_mode"
+			app:useSimpleSummaryProvider="true" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="translator_ocr_packs"
+		android:summary="@string/translator_ocr_packs_summary"
+		android:title="@string/translator_ocr_packs" />
+
+	<PreferenceCategory
+		android:key="translator_group_performance"
+		android:title="@string/translator_group_performance">
+
+		<org.koitharu.kotatsu.settings.utils.SliderPreference
+			android:key="translator_rpm"
+			android:stepSize="5"
+			android:summary="@string/translator_requests_per_minute_summary"
+			android:title="@string/translator_requests_per_minute"
+			android:valueFrom="0"
+			android:valueTo="600"
+			app:defaultValue="10" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="translator_prefetch"
+			android:summary="@string/translator_prefetch_summary"
+			android:title="@string/translator_prefetch" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="translator_group_display"
+		android:title="@string/translator_group_display">
+
+		<org.koitharu.kotatsu.settings.utils.SliderPreference
+			android:key="translator_font_scale"
+			android:stepSize="5"
+			android:summary="@string/translator_font_scale_summary"
+			android:title="@string/translator_font_scale"
+			android:valueFrom="80"
+			android:valueTo="150"
+			app:defaultValue="100"
+			app:tickVisible="false" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="translator_group_context"
+		android:title="@string/translator_group_context">
+
+		<org.koitharu.kotatsu.settings.utils.SliderPreference
+			android:key="translator_context_days"
+			android:stepSize="1"
+			android:summary="@string/translator_context_days_summary"
+			android:title="@string/translator_context_days"
+			android:valueFrom="1"
+			android:valueTo="30"
+			app:defaultValue="7" />
+
+		<Preference
+			android:key="translator_context_clear"
+			android:persistent="false"
+			android:summary="@string/translator_context_clear_summary"
+			android:title="@string/translator_context_clear" />
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -97,6 +97,7 @@ class ReaderActionsView @JvmOverloads constructor(
 		binding.buttonPagesThumbs.initAction()
 		binding.buttonTimer.initAction()
 		binding.buttonBookmark.initAction()
+		binding.buttonTranslate.initAction()
 		binding.slider.setLabelFormatter(PageLabelFormatter())
 		binding.slider.addOnChangeListener(this)
 		binding.slider.addOnSliderTouchListener(this)
@@ -129,6 +130,7 @@ class ReaderActionsView @JvmOverloads constructor(
 			R.id.button_screen_rotation -> listener?.toggleScreenOrientation()
 			R.id.button_options -> listener?.openMenu()
 			R.id.button_bookmark -> listener?.onBookmarkClick()
+			R.id.button_translate -> listener?.toggleTranslation()
 		}
 	}
 
@@ -137,6 +139,7 @@ class ReaderActionsView @JvmOverloads constructor(
 			?.showChapterPagesSheet(ChaptersPagesSheet.TAB_BOOKMARKS)
 
 		R.id.button_timer -> listener?.onScrollTimerClick(isLongClick = true)
+		R.id.button_translate -> listener?.openTranslatorSheet()
 		R.id.button_options -> AppRouter.from(this)?.openReaderSettings()
 		else -> null
 	} != null
@@ -183,6 +186,10 @@ class ReaderActionsView @JvmOverloads constructor(
 		binding.slider.isRtl = reversed != isRtl
 	}
 
+	fun setTranslationActive(isActive: Boolean) {
+		binding.buttonTranslate.alpha = if (isActive) 1f else 0.5f
+	}
+
 	fun setTimerActive(isActive: Boolean) {
 		binding.buttonTimer.setIconResource(
 			if (isActive) R.drawable.ic_timer_run else R.drawable.ic_timer,
@@ -198,6 +205,7 @@ class ReaderActionsView @JvmOverloads constructor(
 		binding.buttonSave.isVisible = ReaderControl.SAVE_PAGE in controls
 		binding.buttonTimer.isVisible = ReaderControl.TIMER in controls
 		binding.buttonBookmark.isVisible = ReaderControl.BOOKMARK in controls
+		binding.buttonTranslate.isVisible = ReaderControl.TRANSLATE in controls
 		binding.slider.isVisible = ReaderControl.SLIDER in controls
 		adjustLayoutParams()
 	}

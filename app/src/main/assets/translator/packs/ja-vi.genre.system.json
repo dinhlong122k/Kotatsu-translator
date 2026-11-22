@@ -1,0 +1,19 @@
+{
+  "id": "ja-vi.genre.system",
+  "version": 1,
+  "langPair": "ja-vi",
+  "genre": "system",
+  "title": "Hệ thống / Game",
+  "reviewed": false,
+  "instructions": "Truyện hệ thống, game, hầm ngục: thông báo hệ thống (trong khung, ngoặc vuông) dịch ngắn gọn, giọng máy móc, giữ nguyên ngoặc và con số. Tên kỹ năng, vật phẩm: chọn một cách dịch hoặc để nguyên tiếng Anh nếu truyện dùng tiếng Anh, rồi dùng nhất quán.",
+  "terms": [
+    { "src": "ステータス", "dst": "bảng trạng thái" },
+    { "src": "レベル", "dst": "cấp độ" },
+    { "src": "スキル", "dst": "kỹ năng" },
+    { "src": "ダンジョン", "dst": "hầm ngục" },
+    { "src": "クエスト", "dst": "nhiệm vụ" },
+    { "src": "アイテム", "dst": "vật phẩm" },
+    { "src": "ハンター", "dst": "thợ săn" },
+    { "src": "経験値", "dst": "điểm kinh nghiệm" }
+  ]
+}

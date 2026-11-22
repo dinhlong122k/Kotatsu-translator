@@ -107,6 +107,7 @@ import org.koitharu.kotatsu.stats.ui.StatsActivity
 import org.koitharu.kotatsu.stats.ui.sheet.MangaStatsSheet
 import org.koitharu.kotatsu.suggestions.ui.SuggestionsActivity
 import org.koitharu.kotatsu.tracker.ui.updates.UpdatesActivity
+import org.koitharu.kotatsu.translator.ui.TranslatorQuickSheet
 import java.io.File
 import androidx.appcompat.R as appcompatR
 
@@ -269,6 +270,10 @@ class AppRouter private constructor(
 
     fun openProxySettings() {
         startActivity(proxySettingsIntent(contextOrNull() ?: return))
+    }
+
+    fun openTranslatorSettings() {
+        startActivity(translatorSettingsIntent(contextOrNull() ?: return))
     }
 
     fun openDownloadsSetting() {
@@ -504,6 +509,10 @@ class AppRouter private constructor(
         ReaderConfigSheet().withArgs(1) {
             putInt(KEY_READER_MODE, mode.id)
         }.showDistinct()
+    }
+
+    fun showTranslatorQuickSheet() {
+        TranslatorQuickSheet().showDistinct()
     }
 
     fun showWelcomeSheet() {
@@ -763,6 +772,10 @@ class AppRouter private constructor(
             Intent(context, SettingsActivity::class.java)
                 .setAction(ACTION_PROXY)
 
+        fun translatorSettingsIntent(context: Context) =
+            Intent(context, SettingsActivity::class.java)
+                .setAction(ACTION_TRANSLATOR)
+
         fun historySettingsIntent(context: Context) =
             Intent(context, SettingsActivity::class.java)
                 .setAction(ACTION_HISTORY)
@@ -844,7 +857,8 @@ class AppRouter private constructor(
         const val ACTION_SOURCES = "${BuildConfig.APPLICATION_ID}.action.MANAGE_SOURCES"
         const val ACTION_MANAGE_DISCORD = "${BuildConfig.APPLICATION_ID}.action.MANAGE_DISCORD"
         const val ACTION_SUGGESTIONS = "${BuildConfig.APPLICATION_ID}.action.MANAGE_SUGGESTIONS"
-        const val ACTION_TRACKER = "${BuildConfig.APPLICATION_ID}.action.MANAGE_TRACKER"
+        const val ACTION_TRANSLATOR = "${BuildConfig.APPLICATION_ID}.action.MANAGE_TRANSLATOR"
+        const val ACTION_TRACKER ="${BuildConfig.APPLICATION_ID}.action.MANAGE_TRACKER"
         const val ACTION_PERIODIC_BACKUP = "${BuildConfig.APPLICATION_ID}.action.MANAGE_PERIODIC_BACKUP"
 
         private const val ACCOUNT_KEY = "account"

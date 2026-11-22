@@ -42,6 +42,10 @@ class PageViewModel(
 
 	val state = MutableStateFlow<PageState>(PageState.Empty)
 
+	/** The region of the original image that is shown (cropped margins) or null for the whole image */
+	val cropBounds: Rect?
+		get() = cachedBounds
+
 	fun isLoading() = job?.isActive == true
 
 	fun onBind(page: MangaPage) {

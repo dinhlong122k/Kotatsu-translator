@@ -101,6 +101,7 @@ class ReaderControlDelegate(
 			TapAction.CHAPTER_PREV -> listener.switchChapterBy(-1)
 			TapAction.TOGGLE_UI -> listener.toggleUiVisibility()
 			TapAction.SHOW_MENU -> listener.openMenu()
+			TapAction.TOGGLE_TRANSLATION -> listener.toggleTranslation()
 		}
 	}
 
@@ -145,6 +146,10 @@ class ReaderControlDelegate(
 		fun onSavePageClick()
 
 		fun onScrollTimerClick(isLongClick: Boolean)
+
+		fun toggleTranslation()
+
+		fun openTranslatorSheet()
 
 		fun toggleScreenOrientation()
 

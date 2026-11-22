@@ -22,6 +22,7 @@ class ReversedReaderFragment : BasePagerReaderFragment() {
 		readerSettingsProducer = viewModel.readerSettingsProducer,
 		networkState = networkState,
 		exceptionResolver = exceptionResolver,
+		translator = translator,
 	)
 
 	override fun onWheelScroll(axisValue: Float) {

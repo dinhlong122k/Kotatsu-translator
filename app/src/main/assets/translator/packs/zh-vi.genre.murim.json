@@ -1,0 +1,28 @@
+{
+  "id": "zh-vi.genre.murim",
+  "version": 1,
+  "langPair": "zh-vi",
+  "genre": "murim",
+  "title": "Võ hiệp / Murim",
+  "reviewed": false,
+  "instructions": "Truyện võ hiệp, tu tiên: dùng văn phong cổ trang, trang trọng. Xưng hô kiểu ta/ngươi, huynh/đệ, sư huynh/sư muội, tiền bối/vãn bối khi hợp ngữ cảnh. Tên chiêu thức và cảnh giới dịch Hán-Việt, giữ nhất quán.",
+  "terms": [
+    { "src": "师父", "dst": "sư phụ" },
+    { "src": "武林", "dst": "võ lâm" },
+    { "src": "江湖", "dst": "giang hồ" },
+    { "src": "内功", "dst": "nội công" },
+    { "src": "门派", "dst": "môn phái" },
+    { "src": "师弟", "dst": "sư đệ" },
+    { "src": "师妹", "dst": "sư muội" },
+    { "src": "掌门", "dst": "chưởng môn" },
+    { "src": "丹田", "dst": "đan điền" },
+    { "src": "魔教", "dst": "ma giáo" },
+    { "src": "修炼", "dst": "tu luyện" },
+    { "src": "境界", "dst": "cảnh giới" },
+    { "src": "灵气", "dst": "linh khí" },
+    { "src": "宗门", "dst": "tông môn" },
+    { "src": "筑基", "dst": "trúc cơ" },
+    { "src": "金丹", "dst": "kim đan" },
+    { "src": "元婴", "dst": "nguyên anh" }
+  ]
+}
